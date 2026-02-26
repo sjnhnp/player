@@ -121,9 +121,11 @@ export function DefaultVideoLayoutSmall() {
         <media-controls-group class="vds-controls-group" style="pointer-events: none;">
           ${[
             DefaultControlsSpacer(),
-            DefaultPrevEpisodeButton(),
-            DefaultPlayButton({ tooltip: 'top' }),
-            DefaultNextEpisodeButton(),
+            DefaultPrevEpisodeButton({ style: 'pointer-events: auto;' }),
+            DefaultControlsSpacer(),
+            DefaultPlayButton({ tooltip: 'top', style: 'pointer-events: auto;' }),
+            DefaultControlsSpacer(),
+            DefaultNextEpisodeButton({ style: 'pointer-events: auto;' }),
             DefaultControlsSpacer(),
           ]}
         </media-controls-group>

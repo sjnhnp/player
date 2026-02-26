@@ -58,7 +58,7 @@ export function DefaultGoogleCastButton({ tooltip }: { tooltip: TooltipPlacement
   `;
 }
 
-export function DefaultPlayButton({ tooltip }: { tooltip: TooltipPlacement }) {
+export function DefaultPlayButton(tooltip: { tooltip: TooltipPlacement; style?: string }) {
   const { translations } = useDefaultLayoutContext(),
     $playText = $i18n(translations, 'Play'),
     $pauseText = $i18n(translations, 'Pause');
@@ -68,6 +68,7 @@ export function DefaultPlayButton({ tooltip }: { tooltip: TooltipPlacement }) {
         <media-play-button
           class="vds-play-button vds-button"
           aria-label=${$i18n(translations, 'Play')}
+          style=${tooltip.style || ''}
         >
           ${IconSlots(['play', 'pause', 'replay'])}
         </media-play-button>
@@ -257,7 +258,7 @@ export function DefaultDownloadButton() {
   });
 }
 
-export function DefaultPrevEpisodeButton() {
+export function DefaultPrevEpisodeButton(opts: { style?: string } = {}) {
   return $signal(() => {
     const { episodes } = useDefaultLayoutContext();
     if (!episodes()?.length) return null;
@@ -266,6 +267,7 @@ export function DefaultPrevEpisodeButton() {
       <button
         class="vds-prev-episode-button vds-button"
         aria-label="上一集"
+        style=${opts.style || ''}
         @click=${() => {
           window.dispatchEvent(new CustomEvent('prev-episode', { bubbles: true, composed: true }));
         }}
@@ -278,7 +280,7 @@ export function DefaultPrevEpisodeButton() {
   });
 }
 
-export function DefaultNextEpisodeButton() {
+export function DefaultNextEpisodeButton(opts: { style?: string } = {}) {
   return $signal(() => {
     const { episodes } = useDefaultLayoutContext();
     if (!episodes()?.length) return null;
@@ -287,6 +289,7 @@ export function DefaultNextEpisodeButton() {
       <button
         class="vds-next-episode-button vds-button"
         aria-label="下一集"
+        style=${opts.style || ''}
         @click=${() => {
           window.dispatchEvent(new CustomEvent('next-episode', { bubbles: true, composed: true }));
         }}
