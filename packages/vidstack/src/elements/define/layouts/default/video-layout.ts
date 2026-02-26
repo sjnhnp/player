@@ -18,14 +18,17 @@ import { DefaultCaptions } from './ui/captions';
 import { DefaultControlsSpacer } from './ui/controls';
 import { DefaultKeyboardDisplay } from './ui/keyboard-display';
 import { DefaultChaptersMenu } from './ui/menu/chapters-menu';
+import { DefaultEpisodesMenu } from './ui/menu/episodes-menu';
 import { DefaultSettingsMenu } from './ui/menu/settings-menu';
 import { DefaultTimeSlider, DefaultVolumePopup } from './ui/slider';
+import { DefaultVideoStats } from './ui/stats';
 import { DefaultTimeInfo } from './ui/time';
 import { DefaultTitle } from './ui/title';
 
 export function DefaultVideoLayoutLarge() {
   return [
     DefaultAnnouncer(),
+    DefaultVideoStats(),
     DefaultVideoGestures(),
     DefaultBufferingIndicator(),
     DefaultKeyboardDisplay(),
@@ -87,6 +90,7 @@ function DefaultControlsGroupTop() {
 export function DefaultVideoLayoutSmall() {
   return [
     DefaultAnnouncer(),
+    DefaultVideoStats(),
     DefaultVideoGestures(),
     DefaultBufferingIndicator(),
     DefaultCaptions(),
@@ -168,6 +172,7 @@ function DefaultVideoMenus() {
     $placement = computed(() => `${$side()} end` as const);
 
   return [
+    DefaultEpisodesMenu({ tooltip: $tooltip, placement: $placement, portal: true }),
     DefaultChaptersMenu({ tooltip: $tooltip, placement: $placement, portal: true }),
     DefaultSettingsMenu({ tooltip: $tooltip, placement: $placement, portal: true }),
   ];

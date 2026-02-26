@@ -1,10 +1,10 @@
-import { Component, computed, prop, provideContext, signal } from 'maverick.js';
+import { Component, computed, effect, prop, provideContext, signal } from 'maverick.js';
 import { isBoolean } from 'maverick.js/std';
 
 import { useMediaContext, type MediaContext } from '../../../core/api/media-context';
 import type { MediaPlayerQuery } from '../../../core/api/player-state';
 import { watchColorScheme } from '../../../utils/dom';
-import { defaultLayoutContext } from './context';
+import { defaultLayoutContext, useDefaultLayoutContext } from './context';
 import { defaultLayoutProps, type DefaultLayoutProps } from './props';
 
 export class DefaultLayout extends Component<DefaultLayoutProps> {
@@ -50,7 +50,14 @@ export class DefaultLayout extends Component<DefaultLayoutProps> {
       smallWhen: this.#smallWhen,
       userPrefersAnnouncements: signal(true),
       userPrefersKeyboardAnimations: signal(true),
+      isStatsVisible: signal(false),
       menuPortal: signal<HTMLElement | null>(null),
+      episodes: signal(this.$props.episodes()),
+    });
+
+    effect(() => {
+      const { episodes } = useDefaultLayoutContext();
+      episodes.set(this.$props.episodes());
     });
   }
 

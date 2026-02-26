@@ -11,6 +11,7 @@ export type DefaultLayoutWord =
   | 'Caption Styles'
   | 'Captions look like this'
   | 'Chapters'
+  | 'Episodes'
   | 'Closed-Captions Off'
   | 'Closed-Captions On'
   | 'Connected'
@@ -56,7 +57,15 @@ export type DefaultLayoutWord =
   | 'Text Background'
   | 'Track'
   | 'Unmute'
-  | 'Volume';
+  | 'Volume'
+  | 'Player version'
+  | 'Video url'
+  | 'Video volume'
+  | 'Video time'
+  | 'Video duration'
+  | 'Video resolution'
+  | 'Stats'
+  | 'Video Stats';
 
 export type DefaultLayoutTranslations = {
   [word in DefaultLayoutWord]: string;

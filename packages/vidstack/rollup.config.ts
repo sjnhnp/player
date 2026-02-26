@@ -346,10 +346,7 @@ function rewriteCDNChunks(file: string): Plugin {
 
       for (const chunk of Object.values(bundle)) {
         if (chunk.type === 'chunk' && chunk.isEntry && chunk.name === file) {
-          chunk.code = chunk.code.replace(
-            /\"\.\/(chunks|providers)\/(.*?)\"/g,
-            `"https://cdn.jsdelivr.net/npm/@vidstack/cdn@${version}/$1/$2"`,
-          );
+          chunk.code = chunk.code.replace(/\"\.\/(chunks|providers)\/(.*?)\"/g, `"./$1/$2"`);
         }
       }
     },

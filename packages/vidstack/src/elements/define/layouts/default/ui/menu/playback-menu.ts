@@ -28,10 +28,31 @@ export function DefaultPlaybackMenu() {
             }),
             DefaultSpeedMenuSection(),
             DefaultQualityMenuSection(),
+            DefaultStatsMenuSection(),
           ]}
         </media-menu-items>
       </media-menu>
     `;
+  });
+}
+
+function DefaultStatsMenuSection() {
+  return $signal(() => {
+    const { translations, isStatsVisible } = useDefaultLayoutContext(),
+      label = 'Video Stats';
+
+    return DefaultMenuSection({
+      children: DefaultMenuItem({
+        label: $i18n(translations, label),
+        children: DefaultMenuCheckbox({
+          label,
+          storageKey: 'vds-player::video-stats',
+          onChange(checked) {
+            isStatsVisible.set(checked);
+          },
+        }),
+      }),
+    });
   });
 }
 
@@ -80,13 +101,13 @@ function DefaultSpeedMenuSection() {
 function getSpeedMin() {
   const { playbackRates } = useDefaultLayoutContext(),
     rates = playbackRates();
-  return isArray(rates) ? rates[0] ?? 0 : rates.min;
+  return isArray(rates) ? (rates[0] ?? 0) : rates.min;
 }
 
 function getSpeedMax() {
   const { playbackRates } = useDefaultLayoutContext(),
     rates = playbackRates();
-  return isArray(rates) ? rates[rates.length - 1] ?? 2 : rates.max;
+  return isArray(rates) ? (rates[rates.length - 1] ?? 2) : rates.max;
 }
 
 function getSpeedStep() {

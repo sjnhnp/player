@@ -3,6 +3,11 @@ import type { FileDownloadInfo } from '../../../utils/network';
 import type { ThumbnailSrc } from '../../ui/thumbnails/thumbnail-loader';
 import type { DefaultLayoutTranslations } from './translations';
 
+export interface Episode {
+  title: string;
+  index: number;
+}
+
 export const defaultLayoutProps: DefaultLayoutProps = {
   colorScheme: 'system',
   download: null,
@@ -24,6 +29,7 @@ export const defaultLayoutProps: DefaultLayoutProps = {
   thumbnails: null,
   translations: null,
   when: false,
+  episodes: null,
 };
 
 export interface DefaultLayoutProps {
@@ -120,4 +126,8 @@ export interface DefaultLayoutProps {
    * keyboard shortcuts.
    */
   seekStep: number;
+  /**
+   * The list of episodes to be displayed in the episodes menu.
+   */
+  episodes: Episode[] | null;
 }
