@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { ref as $ref, type RefOrCallback } from 'lit-html/directives/ref.js';
-import { isNil, isString, noop, uppercaseFirstChar } from 'maverick.js/std';
+import { type ReadSignal } from 'maverick.js';
+import { isFunction, isNil, isString, noop, uppercaseFirstChar } from 'maverick.js/std';
 
 import { useDefaultLayoutContext } from '../../../../../components/layouts/default/context';
 import { i18n } from '../../../../../components/layouts/default/translations';
@@ -296,4 +297,36 @@ export function DefaultNextEpisodeButton() {
       </button>
     `;
   });
+}
+
+export function DefaultControlCenterButton({
+  tooltip,
+}: {
+  tooltip: TooltipPlacement | ReadSignal<TooltipPlacement>;
+}) {
+  const { translations } = useDefaultLayoutContext();
+
+  function onClick() {
+    window.dispatchEvent(new CustomEvent('toggle-control-center'));
+  }
+
+  return html`
+    <media-tooltip class="vds-control-center-tooltip vds-tooltip">
+      <media-tooltip-trigger>
+        <button
+          class="vds-control-center-button vds-button"
+          aria-label=${$i18n(translations, 'Settings') || '控制中心'}
+          @click=${onClick}
+        >
+          <slot name="control-center-icon" data-class="vds-icon vds-control-center-icon"></slot>
+        </button>
+      </media-tooltip-trigger>
+      <media-tooltip-content
+        class="vds-tooltip-content"
+        placement=${isFunction(tooltip) ? $signal(tooltip) : tooltip}
+      >
+        控制中心
+      </media-tooltip-content>
+    </media-tooltip>
+  `;
 }

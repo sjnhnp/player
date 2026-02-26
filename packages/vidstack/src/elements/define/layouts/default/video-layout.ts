@@ -8,6 +8,7 @@ import { DefaultAnnouncer } from './ui/announcer';
 import {
   DefaultAirPlayButton,
   DefaultCaptionButton,
+  DefaultControlCenterButton,
   DefaultDownloadButton,
   DefaultFullscreenButton,
   DefaultGoogleCastButton,
@@ -59,6 +60,7 @@ export function DefaultVideoLayoutLarge() {
                 DefaultTitle(),
                 DefaultCaptionButton({ tooltip: 'top' }),
                 DefaultBottomMenuGroup(),
+                DefaultControlCenterButton({ tooltip: 'top' }),
                 DefaultAirPlayButton({ tooltip: 'top' }),
                 DefaultGoogleCastButton({ tooltip: 'top' }),
                 DefaultDownloadButton(),
@@ -119,7 +121,9 @@ export function DefaultVideoLayoutSmall() {
         <media-controls-group class="vds-controls-group" style="pointer-events: none;">
           ${[
             DefaultControlsSpacer(),
+            DefaultPrevEpisodeButton(),
             DefaultPlayButton({ tooltip: 'top' }),
+            DefaultNextEpisodeButton(),
             DefaultControlsSpacer(),
           ]}
         </media-controls-group>
@@ -127,7 +131,12 @@ export function DefaultVideoLayoutSmall() {
         ${DefaultControlsSpacer()}
 
         <media-controls-group class="vds-controls-group">
-          ${[DefaultTimeInfo(), DefaultTitle(), DefaultFullscreenButton({ tooltip: 'top end' })]}
+          ${[
+            DefaultTimeInfo(),
+            DefaultTitle(),
+            DefaultControlCenterButton({ tooltip: 'top' }),
+            DefaultFullscreenButton({ tooltip: 'top end' }),
+          ]}
         </media-controls-group>
 
         <media-controls-group class="vds-controls-group">

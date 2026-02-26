@@ -27,6 +27,7 @@ import menuPlayback from 'media-icons/dist/icons/playback-speed-circle.js';
 import replay from 'media-icons/dist/icons/replay.js';
 import seekBackward from 'media-icons/dist/icons/seek-backward-10.js';
 import seekForward from 'media-icons/dist/icons/seek-forward-10.js';
+import controlCenter from 'media-icons/dist/icons/settings-menu.js';
 import settings from 'media-icons/dist/icons/settings.js';
 import volumeHigh from 'media-icons/dist/icons/volume-high.js';
 import volumeLow from 'media-icons/dist/icons/volume-low.js';
@@ -81,4 +82,5 @@ export const icons = {
   'kb-cc-off': ccOff,
   'kb-seek-forward': fastForward,
   'kb-seek-backward': fastBackward,
+  'control-center': controlCenter,
 };
