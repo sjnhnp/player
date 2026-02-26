@@ -255,3 +255,45 @@ export function DefaultDownloadButton() {
       : null;
   });
 }
+
+export function DefaultPrevEpisodeButton() {
+  return $signal(() => {
+    const { episodes } = useDefaultLayoutContext();
+    if (!episodes()?.length) return null;
+
+    return html`
+      <button
+        class="vds-prev-episode-button vds-button"
+        aria-label="上一集"
+        @click=${() => {
+          window.dispatchEvent(new CustomEvent('prev-episode', { bubbles: true, composed: true }));
+        }}
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
+          <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
+        </svg>
+      </button>
+    `;
+  });
+}
+
+export function DefaultNextEpisodeButton() {
+  return $signal(() => {
+    const { episodes } = useDefaultLayoutContext();
+    if (!episodes()?.length) return null;
+
+    return html`
+      <button
+        class="vds-next-episode-button vds-button"
+        aria-label="下一集"
+        @click=${() => {
+          window.dispatchEvent(new CustomEvent('next-episode', { bubbles: true, composed: true }));
+        }}
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
+          <path d="M6 18l8.5-6L6 6zM16 6h2v12h-2z"></path>
+        </svg>
+      </button>
+    `;
+  });
+}

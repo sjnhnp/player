@@ -11,8 +11,10 @@ import {
   DefaultDownloadButton,
   DefaultFullscreenButton,
   DefaultGoogleCastButton,
+  DefaultNextEpisodeButton,
   DefaultPIPButton,
   DefaultPlayButton,
+  DefaultPrevEpisodeButton,
 } from './ui/buttons';
 import { DefaultCaptions } from './ui/captions';
 import { DefaultControlsSpacer } from './ui/controls';
@@ -50,6 +52,8 @@ export function DefaultVideoLayoutLarge() {
             <media-controls-group class="vds-controls-group">
               ${[
                 DefaultPlayButton({ tooltip: 'top start' }),
+                DefaultPrevEpisodeButton(),
+                DefaultNextEpisodeButton(),
                 DefaultVolumePopup({ orientation: 'horizontal', tooltip: 'top' }),
                 DefaultTimeInfo(),
                 DefaultTitle(),

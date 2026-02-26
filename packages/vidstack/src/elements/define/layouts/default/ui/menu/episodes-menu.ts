@@ -44,6 +44,8 @@ export function DefaultEpisodesMenu({
 
   function onOpen() {
     $isOpen.set(true);
+    // Let the host app know the menu opened so it can populate content
+    window.dispatchEvent(new CustomEvent('episodes-menu-open'));
   }
 
   function onClose() {
@@ -56,31 +58,77 @@ export function DefaultEpisodesMenu({
       placement=${$signal($placement)}
       offset=${$signal($offset)}
     >
-      ${$signal(() => {
-        if (!$isOpen()) return null;
-        return html`
-          <media-radio-group
-            class="vds-episodes-radio-group vds-radio-group"
-            value="-1"
-            @change=${(e: CustomEvent) => {
-              const index = parseInt(e.detail);
-              const player = document.querySelector('media-player');
-              player?.dispatchEvent(
-                new CustomEvent('change-episode', { detail: index, bubbles: true, composed: true }),
-              );
-            }}
-          >
-            ${episodes()?.map(
-              (ep) => html`
-                <media-radio class="vds-episode-radio vds-radio" value=${ep.index}>
-                  <div class="vds-radio-label" data-part="label">${ep.title}</div>
-                  ${IconSlot('menu-radio-check')}
-                </media-radio>
-              `,
-            )}
-          </media-radio-group>
-        `;
-      })}
+      <div
+        class="episode-list-container"
+        style="width: 350px; height: 500px; display: flex; flex-direction: column; overflow: hidden; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px);"
+      >
+        <div class="sidebar-header">
+          <div class="sidebar-title-row">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 class="sidebar-title">选集</h3>
+              <span class="sidebar-ep-count">共 0 集</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <button
+                id="view-toggle-episodes-player"
+                class="sidebar-tool-btn-mini"
+                title="切换视图"
+              >
+                <svg
+                  id="view-grid-icon-player"
+                  style="width: 16px; height: 16px;"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                  ></path>
+                </svg>
+                <svg
+                  id="view-list-icon-player"
+                  class="hidden"
+                  style="width: 16px; height: 16px;"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  ></path>
+                </svg>
+              </button>
+              <button id="sort-episodes-player" class="sidebar-tool-btn-mini" title="反转顺序">
+                <svg
+                  id="sort-icon-player"
+                  style="width: 16px; height: 16px;"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div style="flex: 1; overflow-y: auto;" class="custom-scrollbar">
+          <div class="ep-grid" id="player-ep-grid">
+            <!-- Populated by SidebarManager.render() -->
+          </div>
+        </div>
+      </div>
     </media-menu-items>
   `;
 
