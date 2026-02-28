@@ -27,8 +27,18 @@ export function DefaultEpisodesMenu({
 
   if ($disabled()) return null;
 
-  function onClick() {
-    window.dispatchEvent(new CustomEvent('toggle-episodes-sidebar'));
+  function onClick(e: Event) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.dispatchEvent(
+      new CustomEvent('toggle-episodes-sidebar', {
+        detail: e,
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   return html`
@@ -38,7 +48,7 @@ export function DefaultEpisodesMenu({
           class="vds-episodes-button vds-button"
           aria-label=${$i18n(translations, 'Episodes')}
           style="pointer-events: auto;"
-          @click=${onClick}
+          @pointerup=${onClick}
         >
           ${IconSlot('menu-chapters')}
         </button>

@@ -263,14 +263,26 @@ export function DefaultPrevEpisodeButton(opts: { style?: string } = {}) {
     const { episodes } = useDefaultLayoutContext();
     if (!episodes()?.length) return null;
 
+    function onClick(e: Event) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      window.dispatchEvent(
+        new CustomEvent('prev-episode', {
+          detail: e,
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    }
+
     return html`
       <button
         class="vds-prev-episode-button vds-button"
         aria-label="上一集"
         style=${opts.style || ''}
-        @click=${() => {
-          window.dispatchEvent(new CustomEvent('prev-episode', { bubbles: true, composed: true }));
-        }}
+        @pointerup=${onClick}
       >
         <svg viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
           <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
@@ -285,14 +297,26 @@ export function DefaultNextEpisodeButton(opts: { style?: string } = {}) {
     const { episodes } = useDefaultLayoutContext();
     if (!episodes()?.length) return null;
 
+    function onClick(e: Event) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      window.dispatchEvent(
+        new CustomEvent('next-episode', {
+          detail: e,
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    }
+
     return html`
       <button
         class="vds-next-episode-button vds-button"
         aria-label="下一集"
         style=${opts.style || ''}
-        @click=${() => {
-          window.dispatchEvent(new CustomEvent('next-episode', { bubbles: true, composed: true }));
-        }}
+        @pointerup=${onClick}
       >
         <svg viewBox="0 0 24 24" fill="currentColor" style="width: 22px; height: 22px;">
           <path d="M6 18l8.5-6L6 6zM16 6h2v12h-2z"></path>
@@ -309,8 +333,18 @@ export function DefaultControlCenterButton({
 }) {
   const { translations } = useDefaultLayoutContext();
 
-  function onClick() {
-    window.dispatchEvent(new CustomEvent('toggle-control-center'));
+  function onClick(e: Event) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    window.dispatchEvent(
+      new CustomEvent('toggle-control-center', {
+        detail: e,
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   return html`
@@ -320,7 +354,7 @@ export function DefaultControlCenterButton({
           class="vds-control-center-button vds-button"
           aria-label=${$i18n(translations, 'Settings') || '控制中心'}
           style="pointer-events: auto;"
-          @click=${onClick}
+          @pointerup=${onClick}
         >
           <slot name="control-center-icon" data-class="vds-icon vds-control-center-icon"></slot>
         </button>
