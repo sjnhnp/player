@@ -319,6 +319,7 @@ export function DefaultControlCenterButton({
         <button
           class="vds-control-center-button vds-button"
           aria-label=${$i18n(translations, 'Settings') || '控制中心'}
+          style="pointer-events: auto;"
           @click=${onClick}
         >
           <slot name="control-center-icon" data-class="vds-icon vds-control-center-icon"></slot>

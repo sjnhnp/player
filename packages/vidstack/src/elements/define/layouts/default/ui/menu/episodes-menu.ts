@@ -37,6 +37,7 @@ export function DefaultEpisodesMenu({
         <button
           class="vds-episodes-button vds-button"
           aria-label=${$i18n(translations, 'Episodes')}
+          style="pointer-events: auto;"
           @click=${onClick}
         >
           ${IconSlot('menu-chapters')}
